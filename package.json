@@ -1,0 +1,11 @@
+{
+  "name": "dear-me-inspired-habit-tracker",
+  "version": "1.0.0",
+  "description": "A responsive habit and self-care routine tracker inspired by Dear Me.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node scripts/build.js",
+    "test": "node --test tests/*.test.js"
+  }
+}

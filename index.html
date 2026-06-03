@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6e8d7" />
+    <title>Dear Day — Daily Routine Tracker</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar" aria-label="App settings">
+        <a class="brand-mark" href="#top">Dear Day</a>
+        <label class="language-switcher">
+          <span data-i18n="languageLabel">Language</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="bn">বাংলা</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="hero-card" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">Daily routine tracker</p>
+          <h1 data-i18n="heroTitle">Build gentle rituals that make every day easier.</h1>
+          <p data-i18n="heroBody">Track habits, organize your day, keep a reflective journal, and pick cozy self-care routines without a noisy paywall.</p>
+          <div class="hero-actions">
+            <button class="primary-button" data-open-composer data-i18n="addHabit">Add habit</button>
+            <a class="secondary-button" href="#routines" data-i18n="exploreRoutines">Explore routines</a>
+          </div>
+        </div>
+        <div class="phone" aria-label="Mobile app preview" data-i18n-attr="aria-label:phonePreviewLabel">
+          <div class="phone-topbar"><span></span><span></span><span></span></div>
+          <div class="phone-greeting"><p id="phoneGreeting">Hi, friend ✨</p><strong id="phoneScore">0% aligned</strong></div>
+          <div class="progress-ring" id="progressRing"><span id="phoneDone">0</span><small id="phoneDoneLabel">done</small></div>
+          <div class="mini-list" id="miniList"></div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Daily progress summary" data-i18n-attr="aria-label:statsLabel">
+        <article class="stat-card"><span>✅</span><p data-i18n="completed">Completed</p><strong id="completedStat">0/0</strong></article>
+        <article class="stat-card"><span>🌱</span><p data-i18n="dailyScore">Daily score</p><strong id="scoreStat">0%</strong></article>
+        <article class="stat-card"><span>🔥</span><p data-i18n="bestStreak">Best streak</p><strong id="streakStat">0 days</strong></article>
+      </section>
+
+      <section class="workspace-grid">
+        <article class="panel habit-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow" id="todayLabel"></p><h2 data-i18n="planTitle">Plan & follow-up</h2></div>
+            <button class="icon-button" data-open-composer aria-label="Add habit" data-i18n-attr="aria-label:addHabit">+</button>
+          </div>
+          <div class="habit-list" id="habitList"></div>
+        </article>
+
+        <article class="panel journal-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow" data-i18n="journalEyebrow">Keep a daily journal</p><h2 data-i18n="journalTitle">Insights for future you</h2></div>
+            <span class="calendar-pill">14</span>
+          </div>
+          <div class="prompt-cloud" id="promptCloud"></div>
+          <textarea id="journal" aria-label="Daily journal" data-i18n-attr="aria-label:journalLabel">Today I am proud that I showed up for myself.</textarea>
+        </article>
+      </section>
+
+      <section class="panel routines" id="routines">
+        <div class="panel-heading">
+          <div><p class="eyebrow" data-i18n="routinesEyebrow">Choose from preset plans</p><h2 data-i18n="routinesTitle">Create a routine for your needs</h2></div>
+          <p class="soft-note" data-i18n="routinesNote">Tap a card to preview, then add its checklist.</p>
+        </div>
+        <div class="routine-layout">
+          <div class="routine-cards" id="routineCards"></div>
+          <div class="routine-preview" id="routinePreview"></div>
+        </div>
+      </section>
+
+      <section class="widget-strip">
+        <article class="widget-card" style="background-color:#b8e8ff"><div class="widget-icons"><span>💧</span><span>📔</span><span>🎵</span></div><h3 data-i18n="widgetHomeTitle">Home screen widget</h3><p data-i18n="widgetHomeSubtitle">At-a-glance habits</p></article>
+        <article class="widget-card" style="background-color:#ffd2df"><div class="widget-icons"><span>🔔</span><span>🌼</span><span>✓</span></div><h3 data-i18n="widgetReminderTitle">Reminder flow</h3><p data-i18n="widgetReminderSubtitle">Gentle nudges, not stress</p></article>
+        <article class="widget-card" style="background-color:#d7f5d7"><div class="widget-icons"><span>🎨</span><span>🕗</span><span>💫</span></div><h3 data-i18n="widgetPlanTitle">Personalized plan</h3><p data-i18n="widgetPlanSubtitle">Colors, times & goals</p></article>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="composerModal" role="dialog" aria-modal="true" aria-labelledby="composer-title" hidden>
+      <form class="habit-composer" id="habitComposer">
+        <div class="panel-heading">
+          <div><p class="eyebrow" data-i18n="composerEyebrow">Add habit</p><h2 id="composer-title" data-i18n="composerTitle">Customize this habit for your routine</h2></div>
+          <button type="button" class="icon-button" data-close-composer aria-label="Close" data-i18n-attr="aria-label:close">×</button>
+        </div>
+        <label><span data-i18n="habitName">Habit name</span><input name="title" required placeholder="e.g. Read 10 pages" data-i18n-attr="placeholder:habitNamePlaceholder" /></label>
+        <label><span data-i18n="category">Category</span><input name="category" placeholder="Mind, Body, Home..." data-i18n-attr="placeholder:categoryPlaceholder" /></label>
+        <div class="composer-grid">
+          <label><span data-i18n="time">Time</span><input name="time" type="time" value="08:00" /></label>
+          <label><span data-i18n="emoji">Emoji</span><input name="emoji" maxlength="2" value="✨" /></label>
+          <label><span data-i18n="color">Color</span><input name="color" type="color" value="#ffd1a8" /></label>
+        </div>
+        <button class="primary-button" type="submit" data-i18n="saveHabit">Save habit</button>
+      </form>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
